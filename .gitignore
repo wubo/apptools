@@ -1,6 +1,7 @@
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
+**/bin
+**/gen
+**/.settings
+**/proguard/*
+**/obj
+**/.DS_Store
+.DS_Store
