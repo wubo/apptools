@@ -112,7 +112,11 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+	    
+	    if(args.length!=0) {
+	        channels = args[0].split(",");
+	    }
+	    
 		System.out.println("location:" + location);
 		System.out.println("project_path:" + project_path);
 		System.out.println("apkDecodeFolder:" + apkDecodeFolder);
