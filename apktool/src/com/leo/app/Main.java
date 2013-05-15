@@ -191,6 +191,7 @@ public class Main {
 		cmd.add("--no-src");
 		cmd.add("-f");
 		cmd.add(project_path);
+		cmd.add("-o");
 		cmd.add(apkDecodeFolder);
 
 		Process process = null;
@@ -244,6 +245,7 @@ public class Main {
 			cmd.add(apktool);
 			cmd.add("b");
 			cmd.add(apkDecodeFolder);
+			cmd.add("-o");
 			cmd.add(unsignedApkFile);
 			Process process = null;
 			process = Runtime.getRuntime().exec(cmd.toArray(new String[0]),
