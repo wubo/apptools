@@ -3,13 +3,21 @@ Android多渠道打包工具
 
 支持跨平台、命令行、多渠道、平均6秒打一个包
 
-1. 环境要求
+1. 加多种打包方式
+========
+添加assets打包方式 解决360等加固不能再打包问题<br />
+使用java -cp命令可选择打包方式<br />
+java -cp apptools.jar com.leo.app.Main(AndroidManifest打包方式)<br />
+java -cp apptools.jar com.leo.app.CMain(assets打包方式)<br />
+java -jar apptools.jar 默认assets打包方式
+
+2. 环境要求
 ========
 <ul>
   <li>Java SDK</li>
   <li>Android SDK</li>
 </ul>
-2.打包流程
+3.打包流程
 ========
 1.设置当前process 的环境变量，保证 apktool 可以正常工作<br />
 2.执行 apktool d --no-src -f xxxx.apk temp 拆解apk<br />
@@ -21,7 +29,7 @@ Android多渠道打包工具
 8.完成打包<br />
 
 
-3.工程目录结构
+4.工程目录结构
 ========
 源码：<br />
 
@@ -44,14 +52,14 @@ Android多渠道打包工具
 > &nbsp;&nbsp;├map.properties<br />
 
 
-4.使用教程
+5.使用教程
 ========
 1.配置map.properties<br />
 2.更改自己要打包项目的AndroidManifest.xml(可参考apps demo)中的渠道号字符替换为map.properties中配置的channelFlag
 指定字符 打好包后放到map.properties配置的指定路径<br />
 3.执行命令行：java -jar apptools.jar 或者 java -jar apptools.jar google,baidu,yyh<br />
 
-5.注意事项
+6.注意事项
 ========
 1.如果您的电脑以前使用过apktool工具请删除工具生成老的framework.jar 路径(windows平台):
 c:\Documents and Settings\%current user%\apktool\framework\*
