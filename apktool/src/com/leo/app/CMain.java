@@ -183,15 +183,20 @@ public class CMain {
 	        // first, copy contents from existing war
 	        Enumeration<? extends ZipEntry> entries = war.entries();
 	        while (entries.hasMoreElements()) {
-	            ZipEntry e = entries.nextElement();
+	            ZipEntry entry = entries.nextElement();
+	            
 	            //fix java.util.zip.ZipException: invalid entry compressed size
-	            e = new ZipEntry(e.getName());
+	            ZipEntry e = new ZipEntry(entry.getName());
+	            e.setMethod(entry.getMethod());
+	            e.setSize(entry.getSize());
+	            e.setCrc(entry.getCrc());
+	            
 	            //过滤掉签名跟渠道文件
 	            if("assets/c.txt".equals(e.getName())||e.getName().startsWith("META-INF")) {
-	            	 System.out.println("ignore: " + e.getName());
+	            	 System.out.println("ignore: " + e.getName()+" Method:"+e.getMethod());
 	            	 continue;
 	            }else {
-	            	 System.out.println("copy: " + e.getName());
+	            	 System.out.println("copy: " + e.getName()+" Method:"+e.getMethod());
 	                 append.putNextEntry(e);
 	            }
 	            
@@ -203,7 +208,7 @@ public class CMain {
 
 	        // now append some extra content
 	        ZipEntry e = new ZipEntry("assets/c.txt");
-	        System.out.println("append: " + e.getName());
+	        System.out.println("append: " + e.getName()+" Method:"+e.getMethod());
 	        append.putNextEntry(e);
 	        append.write(String.format("xx01=%s\n", channel).getBytes());
 	        append.closeEntry();
