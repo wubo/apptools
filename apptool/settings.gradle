@@ -1,0 +1,3 @@
+rootProject.name='apptool'
+include ':tool'
+include ':demo'

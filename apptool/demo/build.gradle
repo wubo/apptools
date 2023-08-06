@@ -1,0 +1,77 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.apktool.demo'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.apktool.demo"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    //签名
+    signingConfigs {
+        myConfig {
+            storeFile file("demo.key")
+            storePassword "123456"
+            keyAlias "apps"
+            keyPassword "123456"
+            // APK signature scheme v2
+            // 满足下面两个条件时需要此配置
+            // 1. Gradle版本 >= 2.14.1
+            // 2. Android Gradle Plugin 版本 >= 2.2.0
+            // 在没有想升级v2前 只使用旧版签名，禁用V2版签名模式
+            // 升级注意检查加固发出来的包有没有问题 检查各个sdk 功能等
+            // Android 7.0 会开始验证 v2 7.0以下版本没有问题
+            // apksigner verify -v app.apk 查看签名版本 Using build-tools 24.0.3 and newer
+            // --v3-signing-enabled true Using build-tools 29.0.1 and newer
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.myConfig
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            signingConfig signingConfigs.myConfig
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        resources.excludes += "DebugProbesKt.bin"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}

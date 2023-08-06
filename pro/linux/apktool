@@ -6,7 +6,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,8 +23,6 @@
 prog="$0"
 while [ -h "${prog}" ]; do
     newProg=`/bin/ls -ld "${prog}"`
-    echo ${newProg}
-
 
     newProg=`expr "${newProg}" : ".* -> \(.*\)$"`
     if expr "x${newProg}" : 'x/' >/dev/null; then
@@ -41,7 +39,6 @@ progdir=`pwd`
 prog="${progdir}"/`basename "${prog}"`
 cd "${oldwd}"
 
-
 jarfile=apktool.jar
 libdir="$progdir"
 if [ ! -r "$libdir/$jarfile" ]
@@ -55,8 +52,8 @@ javaOpts=""
 # If you want DX to have more memory when executing, uncomment the following
 # line and adjust the value accordingly. Use "java -X" for a list of options
 # you can pass here.
-# 
-javaOpts="-Xmx512M"
+#
+javaOpts="-Xmx512M -Dfile.encoding=utf-8 -Djdk.util.zip.disableZip64ExtraFieldValidation=true -Djdk.nio.zipfs.allowDotZipEntry=true"
 
 # Alternatively, this will extract any parameter "-Jxxx" from the command line
 # and pass them to Java (instead of to dx). This makes it possible for you to
@@ -69,9 +66,9 @@ while expr "x$1" : 'x-J' >/dev/null; do
 done
 
 if [ "$OSTYPE" = "cygwin" ] ; then
-	jarpath=`cygpath -w  "$libdir/$jarfile"`
+    jarpath=`cygpath -w  "$libdir/$jarfile"`
 else
-	jarpath="$libdir/$jarfile"
+    jarpath="$libdir/$jarfile"
 fi
 
 # add current location to path for aapt

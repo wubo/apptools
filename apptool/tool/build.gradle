@@ -1,0 +1,19 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+}
+
+jar {
+    manifest {
+        attributes "Manifest-Version": 1.0
+        attributes "Main-Class": "com.tool.app.CMain"
+        attributes "Class-Path": "."
+    }
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
